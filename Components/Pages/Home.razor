@@ -1,7 +1,45 @@
 ﻿@page "/"
+@using PizzaStore.Models
+@using Microsoft.EntityFrameworkCore
+@inject IServiceProvider ServiceProvider
 
 <PageTitle>Home</PageTitle>
 
 <h1 class="text-blue-100">Hello, world!</h1>
 
 This is really cool!
+
+@if (pizzas.Count == 0)
+{
+  <p><em>Loading...</em></p>
+}
+else
+{
+  <ul>
+    @foreach (var pizza in pizzas)
+    {
+      <li>
+        @pizza.Name - @pizza.Description
+      </li>
+    }
+  </ul>
+}
+
+@code {
+  private List<Pizza> pizzas = new List<Pizza>();
+
+  protected override async Task OnInitializedAsync()
+  {
+    // Fetch pizzas from the database
+    pizzas = await GetPizzasAsync();
+  }
+
+  private async Task<List<Pizza>> GetPizzasAsync()
+  {
+    // Use dependency injection to get the DbContext
+    var dbContext = this.ServiceProvider.GetRequiredService<PizzaDb>();
+
+    // Retrieve pizzas from the database
+    return await dbContext.Pizzas.ToListAsync();
+  }
+}
