@@ -1,7 +1,7 @@
-server-watch:
+runserver-watch:
 	dotnet watch
 
-tw-watch:
+compilestyles-watch:
 	npx tailwindcss -i ./Styles/app.css -o ./wwwroot/static/app.css --watch
 
 startmigration:
