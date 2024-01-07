@@ -1,15 +1,21 @@
 using blz_ttk.Components;
 using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+
 using PizzaStore.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddDbContext<PizzaDb>(options => options.UseInMemoryDatabase("items"));
+var connectionString = builder.Configuration.GetConnectionString("Pizzas");
+
+Console.WriteLine(connectionString);
+
+builder.Services.AddDbContext<PizzaDb>(options =>
+    options.UseNpgsql(connectionString));
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
 
 var app = builder.Build();
 
