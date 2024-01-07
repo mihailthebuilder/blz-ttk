@@ -37,7 +37,7 @@ else
   private async Task<List<Pizza>> GetPizzasAsync()
   {
     // Use dependency injection to get the DbContext
-    var dbContext = this.ServiceProvider.GetRequiredService<PizzaDb>();
+    var dbContext = this.ServiceProvider.GetRequiredService<AppDbContext>();
 
     // Retrieve pizzas from the database
     return await dbContext.Pizzas.ToListAsync();

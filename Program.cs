@@ -13,7 +13,7 @@ DotNetEnv.Env.Load();
 
 var connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING");
 
-builder.Services.AddDbContext<PizzaDb>(options =>
+builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddRazorComponents()
@@ -37,9 +37,9 @@ app.UseAntiforgery();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
-app.MapGet("/pizzas", async (PizzaDb db) => await db.Pizzas.ToListAsync());
+app.MapGet("/pizzas", async (AppDbContext db) => await db.Pizzas.ToListAsync());
 
-app.MapPost("/pizza", async (PizzaDb db, Pizza pizza) =>
+app.MapPost("/pizza", async (AppDbContext db, Pizza pizza) =>
 {
     await db.Pizzas.AddAsync(pizza);
     await db.SaveChangesAsync();

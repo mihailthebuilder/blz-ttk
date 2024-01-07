@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace blzttk.Migrations
 {
-    [DbContext(typeof(PizzaDb))]
+    [DbContext(typeof(AppDbContext))]
     [Migration("20240107125226_InitialCreate")]
     partial class InitialCreate
     {

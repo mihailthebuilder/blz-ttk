@@ -4,8 +4,8 @@ runserver-watch:
 compilestyles-watch:
 	npx tailwindcss -i ./Styles/app.css -o ./wwwroot/static/app.css --watch
 
-startmigration:
-	dotnet ef migrations add $(ARGS)
+makemigrations:
+	dotnet ef migrations add $(name)
 
 migrate:
 	dotnet ef database update
