@@ -10,13 +10,13 @@ namespace PizzaStore.Models
     public string? Description { get; set; }
   }
 
-  [Index(nameof(CountryCode))]
+  [Index(nameof(country_code))]
   public class Hashtag
   {
-    public Guid Id { get; set; }
-    public string Name { get; set; }
-    public string CountryCode { get; set; }
-    public int Posts { get; set; }
+    public Guid id { get; set; }
+    public string name { get; set; }
+    public string country_code { get; set; }
+    public int posts { get; set; }
     public int Rank { get; set; }
     public bool LatestTrending { get; set; }
     public int Views { get; set; }
@@ -31,6 +31,11 @@ namespace PizzaStore.Models
     // [Index]
     // public string CountryCode { get; set; }
   }
+
+  public class HahstagTrend
+  {
+    public Guid Id { get; set; }
+  }
 }
 
 class AppDbContext : DbContext
@@ -43,7 +48,11 @@ class AppDbContext : DbContext
   {
     // Define additional configurations, such as indexes
     modelBuilder.Entity<Hashtag>()
-        .Property(h => h.Id)
-        .HasDefaultValueSql("gen_random_uuid()");
+      .Property(h => h.id)
+      .HasDefaultValueSql("gen_random_uuid()");
+
+    modelBuilder.Entity<Hashtag>()
+      .Property(h => h.InsertedAt)
+      .HasDefaultValueSql("CURRENT_TIMESTAMP");
   }
 }
